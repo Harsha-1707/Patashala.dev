@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Patashala.dev – Learn. Build. Break.</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
+  color: white;
+}
+
+/* BACKGROUND PARTICLES */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* MAIN HERO */
+.hero {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.glass {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 60px 50px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 60px rgba(0,255,255,0.2);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* GLITCH LOGO */
+.logo {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  position: relative;
+  animation: glitch 1.5s infinite;
+}
+
+.logo::before,
+.logo::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.logo::before {
+  top: -2px;
+  color: #00ffff;
+  animation: glitchTop 1.5s infinite linear;
+}
+
+.logo::after {
+  top: 2px;
+  color: #ff00ff;
+  animation: glitchBottom 1.5s infinite linear;
+}
+
+@keyframes glitch {
+  0% { transform: skew(0deg); }
+  30% { transform: skew(2deg); }
+  60% { transform: skew(-2deg); }
+}
+
+@keyframes glitchTop {
+  0% { clip-path: inset(0 0 90% 0); }
+  50% { clip-path: inset(0 0 10% 0); }
+}
+
+@keyframes glitchBottom {
+  0% { clip-path: inset(90% 0 0 0); }
+  50% { clip-path: inset(10% 0 0 0); }
+}
+
+/* TYPEWRITER */
+.type {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  min-height: 40px;
+  color: #00ffff;
+}
+
+/* BUTTONS */
+.actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #00ffff, #ff00ff);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+  transform: scale(1.15) rotate(-2deg);
+  box-shadow: 0 0 25px #00ffff;
+}
+
+/* MOUSE BLOB */
+.blob {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,255,255,0.4), transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+<div class="blob" id="blob"></div>
+
+<section class="hero">
+  <div class="glass">
+    <div class="logo" data-text="PATASHALA">PATASHALA</div>
+    <div class="type" id="type"></div>
+
+    <div class="actions">
+      <button>Start Learning</button>
+      <button>Explore Labs</button>
+      <button>Join Community</button>
+    </div>
+  </div>
+</section>
+
+<script>
+/* TYPEWRITER EFFECT */
+const texts = [
+  "Learn. Build. Break. Repeat.",
+  "Where Developers Are Forged 🔥",
+  "Code Like a Mad Scientist 🧪",
+  "Welcome to patashala.dev"
+];
+
+let index = 0, char = 0;
+const typeEl = document.getElementById("type");
+
+function typeWriter() {
+  if (char < texts[index].length) {
+    typeEl.textContent += texts[index][char++];
+    setTimeout(typeWriter, 70);
+  } else {
+    setTimeout(() => {
+      typeEl.textContent = "";
+      char = 0;
+      index = (index + 1) % texts.length;
+      typeWriter();
+    }, 1500);
+  }
+}
+typeWriter();
+
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = Array.from({length: 120}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2 + 1,
+  dx: (Math.random() - 0.5) * 0.6,
+  dy: (Math.random() - 0.5) * 0.6
+}));
+
+function animateParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    p.x += p.dx;
+    p.y += p.dy;
+
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0,255,255,0.7)";
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* MOUSE BLOB FOLLOW */
+const blob = document.getElementById("blob");
+window.addEventListener("mousemove", e => {
+  blob.style.left = e.clientX + "px";
+  blob.style.top = e.clientY + "px";
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
+</script>
+
+</body>
+</html>
