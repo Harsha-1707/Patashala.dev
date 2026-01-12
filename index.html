@@ -15,7 +15,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;   
   height: 100vh;
   background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
   color: white;
@@ -32,13 +32,12 @@ canvas {
 .hero {
   position: relative;
   z-index: 2;
-  height: 100vh;
+  min-height: 100vh;           /* allow content below */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-
 .glass {
   background: rgba(255,255,255,0.08);
   border-radius: 20px;
@@ -152,6 +151,77 @@ button:hover {
   transform: translate(-50%, -50%);
   z-index: 1;
 }
+.edutech-services {
+  padding: 80px 20px;
+  background: #f9fafc;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.edutech-services .container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.edutech-services h2 {
+  font-size: 36px;
+  color: #1f2933;
+  margin-bottom: 10px;
+}
+
+.edutech-services .subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 50px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.service-card {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.service-card .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  font-size: 22px;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 16px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .edutech-services h2 {
+    font-size: 28px;
+  }
+
+  .edutech-services .subtitle {
+    font-size: 16px;
+  }
+}
+
 </style>
 </head>
 
@@ -170,6 +240,70 @@ button:hover {
       <button>Start Learning</button>
       <button>Explore Labs</button>
       <button>Join Community</button>
+    </div>
+  </div>
+</section>
+<section class="edutech-services">
+  <div class="container">
+    <h2>Our EduTech Services</h2>
+    <p class="subtitle">
+      Empowering learning through innovative technology solutions
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">🎓</div>
+        <h3>Online Learning Platforms</h3>
+        <p>
+          Custom LMS solutions with interactive content, assessments, and
+          analytics to enhance learning outcomes.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">💻</div>
+        <h3>Virtual Classrooms</h3>
+        <p>
+          Live classes with video conferencing, real-time collaboration,
+          attendance tracking, and recordings.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">📊</div>
+        <h3>Learning Analytics</h3>
+        <p>
+          Data-driven insights to monitor student performance and personalize
+          the learning journey.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">📱</div>
+        <h3>Mobile Learning Apps</h3>
+        <p>
+          User-friendly mobile apps enabling learning anytime, anywhere across
+          devices.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">🤖</div>
+        <h3>AI-Powered Education</h3>
+        <p>
+          Smart recommendations, automated assessments, and adaptive learning
+          using AI.
+        </p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">🛠️</div>
+        <h3>EduTech Consulting</h3>
+        <p>
+          Strategic consulting to help institutions adopt and scale digital
+          education solutions effectively.
+        </p>
+      </div>
     </div>
   </div>
 </section>
