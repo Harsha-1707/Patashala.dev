@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patashala.Dev - Master the Future of Tech</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Caveat', cursive;
+            overflow-x: hidden;
+            background: #fef9f3;
+            color: #2d2d2d;
+        }
+
+        /* Comic book style halftone background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(45, 45, 45, 0.03) 2px, rgba(45, 45, 45, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(45, 45, 45, 0.03) 2px, rgba(45, 45, 45, 0.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Three.js Canvas */
+        #three-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        /* Sketch lines animation */
+        @keyframes sketchDraw {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(254, 249, 243, 0.95);
+            border-bottom: 3px solid #2d2d2d;
+            box-shadow: 4px 4px 0px rgba(45, 45, 45, 0.2);
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, #2d2d2d 0px, #2d2d2d 10px, transparent 10px, transparent 15px);
+        }
+
+        .logo {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 28px;
+            color: #2d2d2d;
+            text-shadow: 3px 3px 0px #ff6b6b, -1px -1px 0px #4ecdc4;
+            transform: rotate(-2deg);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #ff6b6b;
+            transform: skewY(-1deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+            transform: rotate(-1deg) translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #4ecdc4;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: left;
+        }
+
+        .nav-links a:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .sketch-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #fff;
+            border: 3px solid #2d2d2d;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            box-shadow: 5px 5px 0px #ff6b6b;
+            transform: rotate(-1deg);
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(50px, 10vw, 120px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 30px;
+            color: #2d2d2d;
+            text-shadow: 
+                4px 4px 0px #ff6b6b,
+                8px 8px 0px #4ecdc4,
+                -2px -2px 0px #ffe66d;
+            transform: rotate(-2deg);
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 8px;
+            background: repeating-linear-gradient(90deg, #ff6b6b 0px, #ff6b6b 20px, transparent 20px, transparent 30px);
+            animation: underlineDraw 2s ease-out;
+        }
+
+        @keyframes underlineDraw {
+            from { width: 0; }
+            to { width: 80%; }
+        }
+
+        .subtitle {
+            font-size: clamp(20px, 4vw, 32px);
+            color: #2d2d2d;
+            margin-bottom: 50px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            background: #ffe66d;
+            padding: 0 8px;
+            border: 2px solid #2d2d2d;
+            border-radius: 5px;
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 80px;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            font-size: 22px;
+            font-weight: 700;
+            border: 4px solid #2d2d2d;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: 'Caveat', cursive;
+            position: relative;
+            box-shadow: 6px 6px 0px #2d2d2d;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: #fff;
+            transform: rotate(-1deg);
+        }
+
+        .btn-primary:hover {
+            transform: rotate(-1deg) translateY(-5px);
+            box-shadow: 8px 11px 0px #2d2d2d;
+        }
+
+        .btn-primary:active {
+            transform: rotate(-1deg) translateY(2px);
+            box-shadow: 2px 4px 0px #2d2d2d;
+        }
+
+        .btn-secondary {
+            background: #4ecdc4;
+            color: #2d2d2d;
+            transform: rotate(1deg);
+        }
+
+        .btn-secondary:hover {
+            transform: rotate(1deg) translateY(-5px);
+            box-shadow: 8px 11px 0px #2d2d2d;
+        }
+
+        .btn-secondary:active {
+            transform: rotate(1deg) translateY(2px);
+            box-shadow: 2px 4px 0px #2d2d2d;
+        }
+
+        .stats {
+            display: flex;
+            gap: 60px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: #fff;
+            padding: 20px 30px;
+            border: 4px solid #2d2d2d;
+            border-radius: 15px;
+            box-shadow: 5px 5px 0px rgba(45, 45, 45, 0.3);
+            transform: rotate(-2deg);
+            transition: all 0.3s;
+        }
+
+        .stat-item:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .stat-item:hover {
+            transform: rotate(0deg) translateY(-10px);
+            box-shadow: 8px 12px 0px rgba(45, 45, 45, 0.4);
+        }
+
+        .stat-number {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 48px;
+            color: #ff6b6b;
+            display: block;
+            text-shadow: 2px 2px 0px #4ecdc4;
+        }
+
+        .stat-label {
+            color: #2d2d2d;
+            font-size: 18px;
+            margin-top: 5px;
+            font-weight: 700;
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 10;
+            padding: 120px 20px;
+            background: linear-gradient(180deg, #fef9f3 0%, #f0e6d6 100%);
+        }
+
+        .section-title {
+            font-family: 'Permanent Marker', cursive;
+            text-align: center;
+            font-size: clamp(40px, 6vw, 72px);
+            margin-bottom: 80px;
+            color: #2d2d2d;
+            text-shadow: 3px 3px 0px #4ecdc4, -2px -2px 0px #ff6b6b;
+            transform: rotate(-1deg);
+        }
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 4px solid #2d2d2d;
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 8px 8px 0px rgba(45, 45, 45, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(78, 205, 196, 0.05) 10px, rgba(78, 205, 196, 0.05) 20px);
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .feature-card:hover {
+            transform: rotate(0deg) translateY(-15px);
+            box-shadow: 12px 16px 0px rgba(45, 45, 45, 0.3);
+            border-color: #ff6b6b;
+        }
+
+        .feature-card:nth-child(odd) {
+            transform: rotate(-1deg);
+        }
+
+        .feature-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .feature-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(3px 3px 0px rgba(255, 107, 107, 0.3));
+        }
+
+        .feature-card h3 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: #2d2d2d;
+            line-height: 1.6;
+            font-size: 20px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 3D Canvas Section */
+        .canvas-section {
+            position: relative;
+            z-index: 10;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            background: #fef9f3;
+        }
+
+        .canvas-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .canvas-content h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(36px, 6vw, 60px);
+            margin-bottom: 30px;
+            color: #2d2d2d;
+            text-shadow: 3px 3px 0px #ffe66d;
+            transform: rotate(-1deg);
+        }
+
+        .canvas-content p {
+            color: #2d2d2d;
+            margin-bottom: 50px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        #interactive-canvas {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            border: 5px solid #2d2d2d;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px #4ecdc4;
+            margin: 0 auto;
+        }
+
+        /* Learning Paths */
+        .paths {
+            position: relative;
+            z-index: 10;
+            padding: 120px 20px;
+            background: linear-gradient(180deg, #fef9f3 0%, #e6f3f5 100%);
+        }
+
+        .path-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .path-card {
+            background: #fff;
+            border: 4px solid #2d2d2d;
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(45, 45, 45, 0.2);
+            transform: rotate(-1deg);
+        }
+
+        .path-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .path-card:hover {
+            transform: rotate(0deg) scale(1.08);
+            box-shadow: 10px 12px 0px rgba(45, 45, 45, 0.3);
+            background: #ffe66d;
+        }
+
+        .path-card h4 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+
+        .path-card p {
+            color: #2d2d2d;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Doodles */
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .doodle-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .doodle-2 {
+            bottom: 15%;
+            right: 8%;
+            font-size: 80px;
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .doodle-3 {
+            top: 50%;
+            right: 3%;
+            font-size: 60px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            position: relative;
+            z-index: 10;
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            border-top: 5px solid #2d2d2d;
+        }
+
+        .footer-cta h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(40px, 6vw, 72px);
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 4px 4px 0px #2d2d2d;
+        }
+
+        .footer-cta .subtitle {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .feature-grid, .path-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #interactive-canvas {
+                height: 350px;
+            }
+
+            .doodle {
+                display: none;
+            }
+
+            h1 {
+                text-shadow: 
+                    2px 2px 0px #ff6b6b,
+                    4px 4px 0px #4ecdc4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="three-canvas"></canvas>
+
+    <nav id="navbar">
+        <div class="logo">Patashala.Dev</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#paths">Paths</a></li>
+            <li><a href="#start">Start!</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="hero">
+        <svg class="sketch-lines" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 100 100 Q 200 50 300 100" stroke="#ff6b6b" stroke-width="3" fill="none" opacity="0.3" 
+                  stroke-dasharray="1000" stroke-dashoffset="1000">
+                <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="3s" fill="freeze"/>
+            </path>
+            <path d="M 700 200 Q 800 150 900 200" stroke="#4ecdc4" stroke-width="3" fill="none" opacity="0.3"
+                  stroke-dasharray="1000" stroke-dashoffset="1000">
+                <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="3s" begin="0.5s" fill="freeze"/>
+            </path>
+        </svg>
+
+        <div class="doodle doodle-1">✏️</div>
+        <div class="doodle doodle-2">📚</div>
+        <div class="doodle doodle-3">⚡</div>
+
+        <div class="hero-content">
+            <div class="hero-badge">🚀 120+ Courses • Live Mentoring • Real Projects</div>
+            
+            <h1>Learn.<br>Build.<br>Deliver.</h1>
+            
+            <p class="subtitle">
+                Master tech with <span class="highlight">hands-on projects</span>, 
+                expert mentors, and a squad of <span class="highlight">10,000+ devs</span>
+            </p>
+
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">Start Learning!</a>
+                <a href="#interactive" class="btn btn-secondary">See Magic ✨</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">120+</span>
+                    <span class="stat-label">Courses</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Learners</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Paths</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.5★</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Why Patashala?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon">💡</span>
+                <h3>Skills That Matter</h3>
+                <p>Learn what employers actually want. No fluff, just real-world skills that land jobs.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👨‍💻</span>
+                <h3>Real Mentors</h3>
+                <p>Learn from devs who code daily. Get insider knowledge you won't find in books.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3>Build Real Stuff</h3>
+                <p>Forget boring tutorials. Build actual projects for your portfolio.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌐</span>
+                <h3>Epic Community</h3>
+                <p>Join thousands of learners. Get unstuck fast and make friends who code.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Live Help</h3>
+                <p>Stuck on a bug? Jump into live Q&A sessions with instructors.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📚</span>
+                <h3>All Access</h3>
+                <p>Every course. Every path. One subscription. Learn at your own vibe.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="canvas-section" id="interactive">
+        <div class="canvas-content">
+            <h2>See Code Come Alive!</h2>
+            <p>Interactive 3D learning that makes complex concepts click</p>
+            <div id="interactive-canvas"></div>
+        </div>
+    </section>
+
+    <section class="paths" id="paths">
+        <h2 class="section-title">Pick Your Path</h2>
+        <div class="path-grid">
+            <div class="path-card">
+                <h4>Backend Dev</h4>
+                <p>APIs, databases, and server magic</p>
+            </div>
+            <div class="path-card">
+                <h4>Frontend Pro</h4>
+                <p>React, Vue, Angular mastery</p>
+            </div>
+            <div class="path-card">
+                <h4>Full-Stack</h4>
+                <p>Build everything, front to back</p>
+            </div>
+            <div class="path-card">
+                <h4>Data & AI</h4>
+                <p>ML, analytics, smart systems</p>
+            </div>
+            <div class="path-card">
+                <h4>DevOps</h4>
+                <p>CI/CD, Docker, cloud deploy</p>
+            </div>
+            <div class="path-card">
+                <h4>Mobile</h4>
+                <p>iOS, Android, cross-platform</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-cta" id="start">
+        <h2>Ready to Level Up?</h2>
+        <p class="subtitle">Join 10,000+ developers building epic stuff today</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Start Free Now!</a>
+            <a href="#" class="btn btn-secondary">Browse Courses</a>
+        </div>
+    </section>
+
+    <script>
+        // Three.js Sketch Background
+        const canvas = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        camera.position.z = 5;
+
+        // Create sketch lines
+        const sketchLines = [];
+        for(let i = 0; i < 20; i++) {
+            const points = [];
+            for(let j = 0; j < 50; j++) {
+                points.push(new THREE.Vector3(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                ));
+            }
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const material = new THREE.LineBasicMaterial({ 
+                color: i % 3 === 0 ? 0xff6b6b : i % 3 === 1 ? 0x4ecdc4 : 0xffe66d,
+                transparent: true,
+                opacity: 0.3
+            });
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+            sketchLines.push(line);
+        }
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            sketchLines.forEach((line, i) => {
+                line.rotation.x += 0.001 * (i % 2 === 0 ? 1 : -1);
+                line.rotation.y += 0.002 * (i % 2 === 0 ? -1 : 1);
+                line.position.x = Math.sin(Date.now() * 0.0001 * i) * 2;
+                line.position.y = Math.cos(Date.now() * 0.0001 * i) * 2;
+            });
+
+            scene.rotation.x = mouseY * 0.1;
+            scene.rotation.y = mouseX * 0.1;
+
+            const scrollY = window.scrollY;
+            camera.position.z = 5 + scrollY * 0.002;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Interactive Canvas
+        const interactiveCanvas = document.getElementById('interactive-canvas');
+        const scene2 = new THREE.Scene();
+        const camera2 = new THREE.PerspectiveCamera(75, interactiveCanvas.offsetWidth / interactiveCanvas.offsetHeight, 0.1, 1000);
+        const renderer2 = new THREE.WebGLRenderer({ antialias: true });
+        renderer2.setSize(interactiveCanvas.offsetWidth, interactiveCanvas.offsetHeight);
+        renderer2.setClearColor(0xfef9f3);
+        interactiveCanvas.appendChild(renderer2.domElement);
+
+        // Create sketch-style shapes
+        const shapes = [];
+        const geometries = [
+            new THREE.BoxGeometry(1, 1, 1),
+            new THREE.TorusGeometry(0.7, 0.3, 16, 100),
+            new THREE.OctahedronGeometry(0.8)
+        ];
+
+        for(let i = 0; i < 7; i++) {
+            const geo = geometries[i % 3];
+            const mat = new THREE.MeshBasicMaterial({
+                color: i % 3 === 0 ? 0xff6b6b : i % 3 === 1 ? 0x4ecdc4 : 0xffe66d,
+                wireframe: true,
+                wireframeLinewidth: 3
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.x = (i - 3) * 1.5;
+            mesh.position.y = Math.sin(i) * 0.5;
+            scene2.add(mesh);
+            shapes.push(mesh);
+        }
+
+        camera2.position.z = 8;
+
+        let time = 0;
+        function animateInteractive() {
+            requestAnimationFrame(animateInteractive);
+            time += 0.01;
+
+            shapes.forEach((shape, i) => {
+                shape.rotation.x += 0.01;
+                shape.rotation.y += 0.015;
+                shape.position.y = Math.sin(time + i) * 0.8;
+                shape.rotation.z = Math.cos(time + i * 0.5) * 0.2;
+            });
+
+            renderer2.render(scene2, camera2);
+        }
+        animateInteractive();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation
+        const animateCounter = (element, target) => {
+            let current = 0;
+            const increment = target / 80;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.textContent.includes('+') ? '+' : (element.textContent.includes('★') ? '★' : ''));
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.textContent.includes('+') ? '+' : '');
+                }
+            }, 25);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        const number = parseInt(text.replace(/[^0-9.]/g, ''));
+                        stat.textContent = '0';
+                        animateCounter(stat, number);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            camera2.aspect = interactiveCanvas.offsetWidth / interactiveCanvas.offsetHeight;
+            camera2.updateProjectionMatrix();
+            renderer2.setSize(interactiveCanvas.offsetWidth, interactiveCanvas.offsetHeight);
+        });
+    </script>
+</body>
+</html>
