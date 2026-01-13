@@ -82,7 +82,7 @@ export const WhatIsPatashala = () => {
               color: 'orange',
               gradient: 'from-orange-500 to-orange-700'
             }
-          ].map((feature, index) => (
+          ].map((feature) => (
             <motion.div
               key={feature.title}
               className="bg-gradient-to-br from-brand-neutral-light to-white rounded-2xl p-8 border-2 border-transparent hover:border-brand-purple transition-all relative group cursor-pointer shadow-lg hover:shadow-2xl"

@@ -1,10 +1,13 @@
-import { ButtonHTMLAttributes, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { motion } from 'framer-motion';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   children: ReactNode;
+  className?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
 const variantStyles = {
@@ -24,24 +27,25 @@ export const Button = ({
   size = 'md',
   children, 
   className = '',
-  ...props 
+  onClick,
+  disabled,
 }: ButtonProps) => {
-  const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number; size: number }>>([]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    const newRipple = { x, y, id: Date.now() };
+    const newRipple = { x, y, id: Date.now(), size: Math.max(rect.width, rect.height) };
     setRipples([...ripples, newRipple]);
     
     setTimeout(() => {
       setRipples(prev => prev.filter(r => r.id !== newRipple.id));
     }, 600);
     
-    if (props.onClick) {
-      props.onClick(e);
+    if (onClick) {
+      onClick(e);
     }
   };
 
@@ -56,6 +60,8 @@ export const Button = ({
         ${className}
         disabled:opacity-50 disabled:cursor-not-allowed
       `}
+      onClick={handleClick}
+      disabled={disabled}
       whileHover={{ 
         scale: 1.05,
         boxShadow: '0 10px 40px rgba(99, 102, 241, 0.3)',
@@ -63,28 +69,21 @@ export const Button = ({
       whileTap={{ 
         scale: 0.95,
       }}
-      {...props}
-      onClick={handleClick}
     >
       {/* Ripple effect */}
       {ripples.map(ripple => (
         <motion.span
           key={ripple.id}
-          className="absolute rounded-full bg-white opacity-50 pointer-events-none"
-          initial={{
-            width: 0,
-            height: 0,
-            x: ripple.x,
-            y: ripple.y,
-            opacity: 0.5,
+          className="absolute rounded-full bg-white/30 pointer-events-none"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: ripple.size,
+            height: ripple.size,
+            transform: 'translate(-50%, -50%)',
           }}
-          animate={{
-            width: 300,
-            height: 300,
-            x: ripple.x - 150,
-            y: ripple.y - 150,
-            opacity: 0,
-          }}
+          initial={{ scale: 0, opacity: 1 }}
+          animate={{ scale: 4, opacity: 0 }}
           transition={{ duration: 0.6 }}
         />
       ))}

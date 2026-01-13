@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Center } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface Icon3DProps {
@@ -63,7 +63,7 @@ function AnimatedIcon({ type, color }: Icon3DProps) {
   const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  useFrame((state) => {
+  useFrame((_state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += hovered ? 0.03 : 0.01;
       meshRef.current.scale.setScalar(hovered ? 1.2 : 1);
