@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { PencilMascot } from '@/components/brand/PencilMascot';
+import logo from '@/assets/illustrations/logo.png';
 
 export const FinalCTA = () => {
   return (
@@ -71,10 +71,30 @@ export const FinalCTA = () => {
             transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
           >
             <motion.div
-              whileHover={{ scale: 1.2, rotate: 360 }}
+              whileHover={{ 
+                scale: 1.3, 
+                rotate: 360,
+                filter: "drop-shadow(0 0 20px rgba(255,255,255,0.8))"
+              }}
+              whileTap={{ 
+                scale: 0.8,
+                rotate: -360
+              }}
               transition={{ duration: 0.6 }}
             >
-              <PencilMascot size="large" float={true} />
+              <motion.img 
+                src={logo} 
+                alt="patashala.dev logo" 
+                className="w-20 h-20 object-contain cursor-pointer"
+                animate={{
+                  y: [-10, 10, -10],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
             </motion.div>
           </motion.div>
 

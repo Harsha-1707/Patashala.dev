@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import heroIllustration from '@/assets/illustrations/hero-illustration.png';
-import { PencilMascot } from '@/components/brand/PencilMascot';
+import logo from '@/assets/illustrations/logo.png';
 
 export const Hero = () => {
   const { scrollY } = useScroll();
@@ -55,7 +55,19 @@ export const Hero = () => {
               transition={{ delay: 0.2 }}
               whileHover={{ scale: 1.05 }}
             >
-              <PencilMascot size="small" animate={false} />
+              <motion.img 
+                src={logo} 
+                alt="patashala.dev logo" 
+                className="w-6 h-6 object-contain"
+                animate={{
+                  rotate: [0, 5, -5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
               <span className="text-brand-purple font-semibold text-sm">
                 Learn by Building Real Projects
               </span>
@@ -130,7 +142,7 @@ export const Hero = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
           >
-            <div className="relative bg-white rounded-3xl p-8 shadow-lg">
+            <div className="relative bg-white/40 backdrop-blur-md rounded-3xl p-8 shadow-lg border border-white/20">
               <motion.img 
                 src={heroIllustration} 
                 alt="Learning workspace illustration"

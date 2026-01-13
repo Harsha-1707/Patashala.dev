@@ -1,15 +1,38 @@
 import { Link } from 'react-router-dom';
-import { PencilMascot } from '@/components/brand/PencilMascot';
 import { Button } from '@/components/ui/Button';
+import { motion } from 'framer-motion';
+import logo from '@/assets/illustrations/logo.png';
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-purple-100/50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo with Mascot */}
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <PencilMascot size="small" />
+            <motion.img 
+              src={logo} 
+              alt="patashala.dev logo" 
+              className="w-10 h-10 object-contain cursor-pointer"
+              whileHover={{ 
+                scale: 1.2, 
+                rotate: [0, -10, 10, -10, 0],
+                transition: { duration: 0.5 }
+              }}
+              whileTap={{ 
+                scale: 0.9,
+                rotate: 360,
+                transition: { duration: 0.6 }
+              }}
+              animate={{
+                y: [0, -5, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             <span className="font-display text-2xl font-bold text-brand-purple">
               patashala<span className="text-brand-teal">.dev</span>
             </span>
