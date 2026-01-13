@@ -1,0 +1,23 @@
+{
+  "name": "patashala-website",
+  "version": "1.0.0",
+  "description": "Full-stack platform for patashala.dev - Learn by building real projects",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "keywords": [
+    "learning-platform",
+    "education",
+    "projects",
+    "full-stack"
+  ],
+  "author": "patashala.dev",
+  "license": "MIT"
+}
