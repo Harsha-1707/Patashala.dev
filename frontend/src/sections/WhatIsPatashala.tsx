@@ -1,25 +1,8 @@
 import { motion } from 'framer-motion';
 import { PencilMascot } from '@/components/brand/PencilMascot';
+import { staggerContainer, staggerItem, fadeUp, defaultViewport } from '@/utils/motionVariants';
 
 export const WhatIsPatashala = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
 
   return (
     <section id="what" className="py-24 bg-white">
@@ -27,10 +10,10 @@ export const WhatIsPatashala = () => {
         {/* Section Header */}
         <motion.div 
           className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
         >
           <div className="flex justify-center mb-6">
             <PencilMascot size="medium" float={true} />
@@ -55,10 +38,10 @@ export const WhatIsPatashala = () => {
         {/* Feature Grid with 3D effects */}
         <motion.div 
           className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={defaultViewport}
         >
           {[
             {
@@ -86,7 +69,7 @@ export const WhatIsPatashala = () => {
             <motion.div
               key={feature.title}
               className="bg-gradient-to-br from-brand-neutral-light to-white rounded-2xl p-8 border-2 border-transparent hover:border-brand-purple transition-all relative group cursor-pointer shadow-lg hover:shadow-2xl"
-              variants={itemVariants}
+              variants={staggerItem}
               whileHover={{ 
                 y: -10,
                 borderColor: `var(--color-brand-${feature.color})`

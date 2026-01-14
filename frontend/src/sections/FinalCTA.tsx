@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import logo from '@/assets/illustrations/logo.png';
+import { fadeUp, defaultViewport } from '@/utils/motionVariants';
 
 export const FinalCTA = () => {
   return (
@@ -58,10 +59,10 @@ export const FinalCTA = () => {
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           className="text-center max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
         >
           <motion.div 
             className="flex justify-center mb-8"

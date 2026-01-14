@@ -1,4 +1,5 @@
 import { Header } from '@/components/ui/Header';
+import { ComicClickEffect } from '@/components/effects/ComicClickEffect';
 import { Hero } from '@/sections/Hero';
 import { WhatIsPatashala } from '@/sections/WhatIsPatashala';
 import { WhatYouBuild } from '@/sections/WhatYouBuild';
@@ -9,6 +10,7 @@ import { FinalCTA } from '@/sections/FinalCTA';
 export const Home = () => {
   return (
     <>
+      <ComicClickEffect />
       <Header />
       <main>
         <Hero />

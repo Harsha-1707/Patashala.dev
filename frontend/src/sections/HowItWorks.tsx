@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
 
 export const HowItWorks = () => {
   const steps = [
@@ -57,10 +58,10 @@ export const HowItWorks = () => {
         {/* Section Header */}
         <motion.div 
           className="text-center max-w-3xl mx-auto mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
         >
           <h2 className="mb-6">
             How <span className="text-brand-purple">Learning</span> Works
@@ -71,16 +72,19 @@ export const HowItWorks = () => {
           </p>
         </motion.div>
 
-        {/* Steps with 3D interactive cards */}
-        <div className="max-w-5xl mx-auto">
+        {/* Steps with staggered reveals */}
+        <motion.div 
+          className="max-w-5xl mx-auto"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+        >
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
               className="relative mb-12 last:mb-0"
-              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.2 }}
+              variants={staggerItem}
             >
               <div className={`flex items-start gap-8 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
                 {/* Animated number circle */}
@@ -157,7 +161,7 @@ export const HowItWorks = () => {
               )}
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

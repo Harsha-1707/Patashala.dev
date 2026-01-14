@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import learningIcons from '@/assets/illustrations/learning-icons.png';
+import { fadeUp, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
 
 export const WhatYouBuild = () => {
   const projects = [
@@ -35,10 +36,10 @@ export const WhatYouBuild = () => {
         {/* Section Header with 3D Icons */}
         <motion.div 
           className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
         >
           <motion.div className="bg-white rounded-3xl p-8 mb-8 inline-block shadow-lg">
             <motion.img 
@@ -68,8 +69,14 @@ export const WhatYouBuild = () => {
           </p>
         </motion.div>
 
-        {/* Project Grid with enhanced 3D */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {/* Project Grid with staggered reveals */}
+        <motion.div 
+          className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+        >
           {projects.map((project, index) => (
             <motion.div
               key={project.category}
@@ -78,10 +85,7 @@ export const WhatYouBuild = () => {
                 borderColor: `var(--color-brand-${project.color})`,
                 transformStyle: 'preserve-3d'
               }}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              variants={staggerItem}
               whileHover={{ 
                 scale: 1.05,
                 rotate: index % 2 === 0 ? -2 : 2,
@@ -133,7 +137,7 @@ export const WhatYouBuild = () => {
               </motion.ul>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

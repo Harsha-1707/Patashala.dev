@@ -55,6 +55,7 @@ export const Button = ({
         font-display font-semibold rounded-xl
         transition-all duration-200
         relative overflow-hidden
+        comic-shake
         ${variantStyles[variant]}
         ${sizeStyles[size]}
         ${className}

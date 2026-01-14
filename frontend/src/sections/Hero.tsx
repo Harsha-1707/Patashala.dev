@@ -4,20 +4,24 @@ import heroIllustration from '@/assets/illustrations/hero-illustration.png';
 import logo from '@/assets/illustrations/logo.png';
 
 export const Hero = () => {
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  
+  // Parallax for background decorative elements only (disabled if reduced motion)
+  const bgBlobY1 = useTransform(scrollY, [0, 500], [0, prefersReducedMotion ? 0 : 80]);
+  const bgBlobY2 = useTransform(scrollY, [0, 500], [0, prefersReducedMotion ? 0 : 50]);
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-brand-neutral-light via-purple-50 to-teal-50">
-      {/* Animated background decorative elements */}
+      {/* Animated background decorative elements with subtle parallax */}
       <motion.div 
         className="absolute top-10 right-10 w-32 h-32 bg-brand-purple/10 rounded-full blur-3xl"
+        style={{ y: bgBlobY1 }}
         animate={{
           scale: [1, 1.2, 1],
           x: [0, 20, 0],
-          y: [0, -10, 0],
         }}
         transition={{
           duration: 8,
@@ -27,10 +31,10 @@ export const Hero = () => {
       />
       <motion.div 
         className="absolute bottom-20 left-20 w-40 h-40 bg-brand-teal/10 rounded-full blur-3xl"
+        style={{ y: bgBlobY2 }}
         animate={{
           scale: [1, 1.3, 1],
           x: [0, -15, 0],
-          y: [0, 15, 0],
         }}
         transition={{
           duration: 10,
@@ -41,9 +45,8 @@ export const Hero = () => {
 
       <div className="container mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Content with parallax */}
+          {/* Left: Content (static for readability) */}
           <motion.div
-            style={{ y: y2, opacity }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -134,10 +137,9 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: Illustration with parallax and float */}
+          {/* Right: Illustration (static for stability) */}
           <motion.div
             className="relative"
-            style={{ y: y1 }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}

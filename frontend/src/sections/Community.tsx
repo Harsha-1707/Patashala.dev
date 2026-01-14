@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion';
+import { fadeUp, slideInLeft, slideInRight, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
 
 export const Community = () => {
   return (
     <section id="community" className="py-24 bg-gradient-to-br from-white via-purple-50 to-teal-50 overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Left: Illustration placeholder with 3D effect */}
+          {/* Left: Illustration with slide-in */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: -50 }}
-            whileInView={{ opacity: 1, scale: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            variants={slideInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
           >
             <div className="w-full max-w-lg mx-auto p-12 bg-white rounded-3xl shadow-lg">
               <motion.div
@@ -36,12 +37,12 @@ export const Community = () => {
             </div>
           </motion.div>
 
-          {/* Right: Content */}
+          {/* Right: Content with slide-in */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            variants={slideInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
           >
             <motion.h2 
               className="mb-6"
@@ -62,7 +63,14 @@ export const Community = () => {
               Get feedback, share knowledge, and grow together.
             </motion.p>
 
-            <div className="space-y-6">
+            {/* Feature list with stagger */}
+            <motion.div 
+              className="space-y-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+            >
               {[
                 { icon: '💬', title: 'Active Discord Community', desc: 'Real-time help and discussions', color: 'purple' },
                 { icon: '🎓', title: 'Code Reviews', desc: 'Get feedback from experienced developers', color: 'teal' },
@@ -71,10 +79,7 @@ export const Community = () => {
                 <motion.div
                   key={item.title}
                   className="flex gap-4 items-start p-4 rounded-xl bg-white/50 backdrop-blur-sm hover:bg-white transition-all cursor-pointer group shadow-md hover:shadow-xl"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.15 }}
+                  variants={staggerItem}
                   whileHover={{ 
                     x: 10,
                   }}
@@ -100,7 +105,7 @@ export const Community = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

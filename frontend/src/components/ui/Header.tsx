@@ -1,12 +1,45 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import logo from '@/assets/illustrations/logo.png';
 
 export const Header = () => {
+  // Scroll detection for navbar state change
+  const { scrollY } = useScroll();
+  
+  // Threshold-based transitions (activate after 50px scroll)
+  const headerBg = useTransform(
+    scrollY,
+    [0, 50],
+    ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)']
+  );
+  
+  const headerShadow = useTransform(
+    scrollY,
+    [0, 50],
+    ['0px 0px 0px rgba(0, 0, 0, 0)', '0px 10px 30px rgba(0, 0, 0, 0.1)']
+  );
+  
+  const headerPadding = useTransform(
+    scrollY,
+    [0, 50],
+    ['20px', '12px']
+  );
+
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-purple-100/50">
-      <div className="container mx-auto px-6 py-4">
+    <motion.header 
+      className="sticky top-0 z-50 backdrop-blur-md border-b border-purple-100/50"
+      style={{
+        backgroundColor: headerBg,
+        boxShadow: headerShadow,
+      }}
+      // Respect reduced motion preference
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+    >
+      <motion.div 
+        className="container mx-auto px-6"
+        style={{ paddingTop: headerPadding, paddingBottom: headerPadding }}
+      >
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
@@ -70,7 +103,7 @@ export const Header = () => {
             </svg>
           </button>
         </div>
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 };
