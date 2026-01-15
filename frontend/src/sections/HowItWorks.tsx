@@ -27,10 +27,10 @@ export const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-12 md:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Animated decorative elements */}
       <motion.div 
-        className="absolute top-0 right-0 w-96 h-96 bg-brand-teal/5 rounded-full blur-3xl"
+        className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-brand-teal/5 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           x: [0, 30, 0],
@@ -42,7 +42,7 @@ export const HowItWorks = () => {
         }}
       />
       <motion.div 
-        className="absolute bottom-0 left-0 w-96 h-96 bg-brand-purple/5 rounded-full blur-3xl"
+        className="absolute bottom-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-brand-purple/5 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.3, 1],
           y: [0, -20, 0],
@@ -54,20 +54,20 @@ export const HowItWorks = () => {
         }}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <motion.div 
-          className="text-center max-w-3xl mx-auto mb-20"
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
         >
-          <h2 className="mb-6">
+          <h2 className="mb-4 md:mb-6">
             How <span className="text-brand-purple">Learning</span> Works
           </h2>
           
-          <p className="text-xl text-brand-neutral-mid leading-relaxed">
+          <p className="text-base md:text-xl text-brand-neutral-mid leading-relaxed">
             A structured, hands-on approach to mastering modern development
           </p>
         </motion.div>
@@ -83,18 +83,18 @@ export const HowItWorks = () => {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              className="relative mb-12 last:mb-0"
+              className="relative mb-8 md:mb-12 last:mb-0"
               variants={staggerItem}
             >
-              <div className={`flex items-start gap-8 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex flex-col md:flex-row items-start gap-4 md:gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 {/* Animated number circle */}
                 <motion.div 
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 self-center md:self-start"
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
                   <motion.div 
-                    className="w-24 h-24 rounded-full bg-brand-purple/10 flex items-center justify-center cursor-pointer relative"
+                    className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-brand-purple/10 flex items-center justify-center cursor-pointer relative"
                     style={{
                       transformStyle: 'preserve-3d',
                     }}
@@ -103,7 +103,7 @@ export const HowItWorks = () => {
                     }}
                   >
                     <motion.span 
-                      className="text-4xl"
+                      className="text-2xl md:text-3xl lg:text-4xl"
                       animate={{
                         scale: [1, 1.1, 1],
                       }}
@@ -120,7 +120,7 @@ export const HowItWorks = () => {
 
                 {/* Content card with 3D effect */}
                 <motion.div 
-                  className={`flex-1 bg-brand-neutral-light rounded-2xl p-8 cursor-pointer group ${index % 2 === 1 ? 'text-right' : ''}`}
+                  className={`flex-1 bg-brand-neutral-light rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 cursor-pointer group ${index % 2 === 1 ? 'md:text-right' : ''}`}
                   whileHover={{ 
                     scale: 1.03,
                     rotate: index % 2 === 0 ? -1 : 1,
@@ -134,25 +134,25 @@ export const HowItWorks = () => {
                   }}
                 >
                   <motion.div 
-                    className="text-brand-purple font-bold text-sm mb-2"
+                    className="text-brand-purple font-bold text-xs md:text-sm mb-2"
                     whileHover={{ scale: 1.2 }}
                   >
                     {step.number}
                   </motion.div>
                   <motion.h3 
-                    className="text-3xl mb-4 group-hover:text-brand-purple transition-colors"
+                    className="text-xl md:text-2xl lg:text-3xl mb-3 md:mb-4 group-hover:text-brand-purple transition-colors"
                     whileHover={{ x: index % 2 === 0 ? 10 : -10 }}
                   >
                     {step.title}
                   </motion.h3>
-                  <p className="text-lg text-brand-neutral-mid">{step.description}</p>
+                  <p className="text-sm md:text-base lg:text-lg text-brand-neutral-mid">{step.description}</p>
                 </motion.div>
               </div>
 
-              {/* Animated connector line */}
+              {/* Animated connector line - hide on mobile */}
               {index < steps.length - 1 && (
                 <motion.div 
-                  className="absolute left-12 top-24 w-px h-12 bg-brand-purple/20"
+                  className="hidden md:block absolute left-8 lg:left-12 top-16 lg:top-24 w-px h-12 bg-brand-purple/20"
                   initial={{ scaleY: 0 }}
                   whileInView={{ scaleY: 1 }}
                   viewport={{ once: true }}

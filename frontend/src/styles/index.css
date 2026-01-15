@@ -129,6 +129,22 @@
   .hover-lift:hover {
     transform: translateY(-2px);
   }
+
+  /* Mobile-specific utilities */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .mobile-safe-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Container responsive padding */
+  .container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
 }
 
 /* Accessibility - respect user preferences */

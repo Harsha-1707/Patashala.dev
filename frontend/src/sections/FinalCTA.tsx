@@ -8,10 +8,10 @@ export const FinalCTA = () => {
   const navigate = useNavigate();
   
   return (
-    <section className="py-24 bg-gradient-to-br from-brand-purple via-purple-600 to-brand-teal relative overflow-hidden">
+    <section className="py-12 md:py-20 lg:py-24 bg-gradient-to-br from-brand-purple via-purple-600 to-brand-teal relative overflow-hidden">
       {/* Animated decorative elements */}
       <motion.div 
-        className="absolute top-10 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"
+        className="absolute top-10 left-10 w-40 h-40 md:w-64 md:h-64 bg-white/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.5, 1],
           x: [0, 50, 0],
@@ -24,7 +24,7 @@ export const FinalCTA = () => {
         }}
       />
       <motion.div 
-        className="absolute bottom-10 right-10 w-80 h-80 bg-white/10 rounded-full blur-3xl"
+        className="absolute bottom-10 right-10 w-48 h-48 md:w-80 md:h-80 bg-white/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.3, 1],
           x: [0, -40, 0],
@@ -59,7 +59,7 @@ export const FinalCTA = () => {
         />
       ))}
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           className="text-center max-w-3xl mx-auto"
           variants={fadeUp}
@@ -68,7 +68,7 @@ export const FinalCTA = () => {
           viewport={defaultViewport}
         >
           <motion.div 
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-6 md:mb-8"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
@@ -89,7 +89,7 @@ export const FinalCTA = () => {
               <motion.img 
                 src={logo} 
                 alt="patashala.dev logo" 
-                className="w-20 h-20 object-contain cursor-pointer"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain cursor-pointer"
                 animate={{
                   y: [-10, 10, -10],
                 }}
@@ -103,7 +103,7 @@ export const FinalCTA = () => {
           </motion.div>
 
           <motion.h2 
-            className="text-white mb-6"
+            className="text-white mb-4 md:mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -113,7 +113,7 @@ export const FinalCTA = () => {
           </motion.h2>
 
           <motion.p 
-            className="text-xl text-white/90 mb-10 leading-relaxed"
+            className="text-base md:text-lg lg:text-xl text-white/90 mb-8 md:mb-10 leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -124,7 +124,7 @@ export const FinalCTA = () => {
           </motion.p>
 
           <motion.div 
-            className="flex flex-wrap gap-4 justify-center"
+            className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -157,7 +157,7 @@ export const FinalCTA = () => {
           </motion.div>
 
           <motion.p 
-            className="text-white/70 text-sm mt-8"
+            className="text-white/70 text-xs md:text-sm mt-6 md:mt-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

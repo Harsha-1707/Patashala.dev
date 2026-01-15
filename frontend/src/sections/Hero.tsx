@@ -20,7 +20,7 @@ export const Hero = () => {
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-brand-neutral-light via-purple-50 to-teal-50">
       {/* Animated background decorative elements with subtle parallax */}
       <motion.div 
-        className="absolute top-10 right-10 w-32 h-32 bg-brand-purple/10 rounded-full blur-3xl"
+        className="absolute top-10 right-10 w-20 h-20 md:w-32 md:h-32 bg-brand-purple/10 rounded-full blur-3xl"
         style={{ y: bgBlobY1 }}
         animate={{
           scale: [1, 1.2, 1],
@@ -33,7 +33,7 @@ export const Hero = () => {
         }}
       />
       <motion.div 
-        className="absolute bottom-20 left-20 w-40 h-40 bg-brand-teal/10 rounded-full blur-3xl"
+        className="absolute bottom-20 left-10 md:left-20 w-24 h-24 md:w-40 md:h-40 bg-brand-teal/10 rounded-full blur-3xl"
         style={{ y: bgBlobY2 }}
         animate={{
           scale: [1, 1.3, 1],
@@ -46,8 +46,8 @@ export const Hero = () => {
         }}
       />
 
-      <div className="container mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 py-12 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Content (static for readability) */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -55,7 +55,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.div 
-              className="inline-flex items-center gap-2 bg-brand-purple/10 px-4 py-2 rounded-full mb-6"
+              className="inline-flex items-center gap-2 bg-brand-purple/10 px-3 py-2 md:px-4 rounded-full mb-4 md:mb-6"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -64,7 +64,7 @@ export const Hero = () => {
               <motion.img 
                 src={logo} 
                 alt="patashala.dev logo" 
-                className="w-6 h-6 object-contain"
+                className="w-5 h-5 md:w-6 md:h-6 object-contain"
                 animate={{
                   rotate: [0, 5, -5, 0],
                 }}
@@ -74,13 +74,13 @@ export const Hero = () => {
                   ease: "easeInOut"
                 }}
               />
-              <span className="text-brand-purple font-semibold text-sm">
+              <span className="text-brand-purple font-semibold text-xs md:text-sm">
                 Learn by Building Real Projects
               </span>
             </motion.div>
 
             <motion.h1 
-              className="mb-6"
+              className="mb-4 md:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -125,7 +125,7 @@ export const Hero = () => {
             </motion.h1>
 
             <motion.p 
-              className="text-xl text-brand-neutral-mid mb-8 leading-relaxed max-w-xl"
+              className="text-base md:text-xl text-brand-neutral-mid mb-6 md:mb-8 leading-relaxed max-w-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5, duration: 1 }}
@@ -134,7 +134,7 @@ export const Hero = () => {
             </motion.p>
 
             <motion.div 
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -149,7 +149,7 @@ export const Hero = () => {
 
             {/* Animated Stats */}
             <motion.div 
-              className="mt-12 flex flex-wrap gap-8"
+              className="mt-8 md:mt-12 grid grid-cols-3 gap-4 md:gap-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
@@ -165,9 +165,10 @@ export const Hero = () => {
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.1, type: 'spring', stiffness: 200 }}
                   whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                  className="text-center md:text-left"
                 >
-                  <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
-                  <div className="text-sm text-brand-neutral-mid">{stat.label}</div>
+                  <div className={`text-xl md:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
+                  <div className="text-xs md:text-sm text-brand-neutral-mid">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -175,12 +176,12 @@ export const Hero = () => {
 
           {/* Right: Illustration (static for stability) */}
           <motion.div
-            className="relative"
+            className="relative order-first lg:order-last"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
           >
-            <div className="relative bg-white/40 backdrop-blur-md rounded-3xl p-8 shadow-lg border border-white/20">
+            <div className="relative bg-white/40 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-lg border border-white/20">
               <motion.img 
                 src={heroIllustration} 
                 alt="Learning workspace illustration"

@@ -1,11 +1,14 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { MobileMenu } from '@/components/ui/MobileMenu';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import logo from '@/assets/illustrations/logo.png';
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Scroll detection for navbar state change
   const { scrollY } = useScroll();
@@ -125,13 +128,43 @@ export const Header = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden text-brand-purple">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button 
+            className="md:hidden text-brand-purple p-2 touch-target relative z-50" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={isMobileMenuOpen ? 'open' : 'closed'}
+              className="w-6 h-6 flex flex-col justify-center items-center"
+            >
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: -6 },
+                  open: { rotate: 45, y: 0 }
+                }}
+                className="w-6 h-0.5 bg-current block mb-1.5 origin-center"
+              />
+              <motion.span
+                variants={{
+                  closed: { opacity: 1 },
+                  open: { opacity: 0 }
+                }}
+                className="w-6 h-0.5 bg-current block mb-1.5"
+              />
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: 6 },
+                  open: { rotate: -45, y: 0 }
+                }}
+                className="w-6 h-0.5 bg-current block origin-center"
+              />
+            </motion.div>
           </button>
         </div>
       </motion.div>
+
+      {/* Mobile Menu Component */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </motion.header>
   );
 };
