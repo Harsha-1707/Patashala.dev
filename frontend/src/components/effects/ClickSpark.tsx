@@ -1,4 +1,15 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, ReactNode } from 'react';
+
+interface ClickSparkProps {
+  sparkColor?: string;
+  sparkSize?: number;
+  sparkRadius?: number;
+  sparkCount?: number;
+  duration?: number;
+  easing?: string;
+  extraScale?: number;
+  children: ReactNode;
+}
 
 const ClickSpark = ({
   sparkColor = '#6366f1',

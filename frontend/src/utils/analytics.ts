@@ -1,14 +1,6 @@
 // Simple event tracking utility
 // Supports multiple analytics providers (GA4, Plausible, etc.)
 
-interface AnalyticsEvent {
-  event: string;
-  category?: string;
-  label?: string;
-  value?: number;
-  [key: string]: any;
-}
-
 class Analytics {
   private enabled: boolean;
 
