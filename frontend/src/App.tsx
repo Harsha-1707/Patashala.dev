@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { Home } from '@/pages/Home';
 import { Contact } from '@/pages/Contact';
 import { Courses } from '@/pages/Courses';
+import { Services } from '@/pages/Services';
+import { About } from '@/pages/About';
 
 // Component to handle hash scrolling
 function ScrollToHash() {
@@ -30,8 +32,10 @@ function App() {
       <ScrollToHash />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { fadeUp, slideInLeft, slideInRight, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
+import { slideInLeft, slideInRight, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
 
 export const Community = () => {
   return (
@@ -75,7 +75,7 @@ export const Community = () => {
                 { icon: '💬', title: 'Active Discord Community', desc: 'Real-time help and discussions', color: 'purple' },
                 { icon: '🎓', title: 'Code Reviews', desc: 'Get feedback from experienced developers', color: 'teal' },
                 { icon: '🏆', title: 'Showcase Your Work', desc: 'Share your projects and get recognized', color: 'orange' }
-              ].map((item, index) => (
+              ].map((item) => (
                 <motion.div
                   key={item.title}
                   className="flex gap-4 items-start p-4 rounded-xl bg-white/50 backdrop-blur-sm hover:bg-white transition-all cursor-pointer group shadow-md hover:shadow-xl"

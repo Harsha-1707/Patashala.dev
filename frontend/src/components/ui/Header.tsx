@@ -1,10 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import logo from '@/assets/illustrations/logo.png';
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  
   // Scroll detection for navbar state change
   const { scrollY } = useScroll();
   
@@ -26,6 +28,9 @@ export const Header = () => {
     [0, 50],
     ['20px', '12px']
   );
+
+  // Helper to check if route is active
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <motion.header 
@@ -75,22 +80,44 @@ export const Header = () => {
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <Link 
-              to="/#what" 
-              className="text-brand-neutral-dark hover:text-brand-purple transition-colors font-medium"
+              to="/" 
+              className={`font-medium transition-colors ${
+                isActive('/') 
+                  ? 'text-brand-purple' 
+                  : 'text-brand-neutral-dark hover:text-brand-purple'
+              }`}
             >
-              What We Do
+              Home
             </Link>
             <Link 
-              to="/#projects" 
-              className="text-brand-neutral-dark hover:text-brand-purple transition-colors font-medium"
+              to="/services" 
+              className={`font-medium transition-colors ${
+                isActive('/services') 
+                  ? 'text-brand-purple' 
+                  : 'text-brand-neutral-dark hover:text-brand-purple'
+              }`}
             >
-              Projects
+              Services
             </Link>
             <Link 
-              to="/#community" 
-              className="text-brand-neutral-dark hover:text-brand-purple transition-colors font-medium"
+              to="/courses" 
+              className={`font-medium transition-colors ${
+                isActive('/courses') 
+                  ? 'text-brand-purple' 
+                  : 'text-brand-neutral-dark hover:text-brand-purple'
+              }`}
             >
-              Community
+              Courses
+            </Link>
+            <Link 
+              to="/about" 
+              className={`font-medium transition-colors ${
+                isActive('/about') 
+                  ? 'text-brand-purple' 
+                  : 'text-brand-neutral-dark hover:text-brand-purple'
+              }`}
+            >
+              About
             </Link>
             <Button variant="primary" size="sm" onClick={() => navigate('/contact')}>
               Get Started

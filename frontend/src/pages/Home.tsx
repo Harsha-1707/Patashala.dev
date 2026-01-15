@@ -1,5 +1,4 @@
-import { Header } from '@/components/ui/Header';
-import { ComicClickEffect } from '@/components/effects/ComicClickEffect';
+import { PageLayout } from '@/components/layout/PageLayout';
 import { Hero } from '@/sections/Hero';
 import { WhatIsPatashala } from '@/sections/WhatIsPatashala';
 import { WhatYouBuild } from '@/sections/WhatYouBuild';
@@ -9,17 +8,13 @@ import { FinalCTA } from '@/sections/FinalCTA';
 
 export const Home = () => {
   return (
-    <>
-      <ComicClickEffect />
-      <Header />
-      <main>
-        <Hero />
-        <WhatIsPatashala />
-        <WhatYouBuild />
-        <HowItWorks />
-        <Community />
-        <FinalCTA />
-      </main>
-    </>
+    <PageLayout>
+      <Hero />
+      <WhatIsPatashala />
+      <WhatYouBuild />
+      <HowItWorks />
+      <Community />
+      <FinalCTA />
+    </PageLayout>
   );
 };

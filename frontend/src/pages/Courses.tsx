@@ -1,96 +1,164 @@
-import { Header } from '@/components/ui/Header';
-import { ComicClickEffect } from '@/components/effects/ComicClickEffect';
+import { PageLayout } from '@/components/layout/PageLayout';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { fadeUp, staggerContainer, staggerItem, defaultViewport } from '@/utils/motionVariants';
 
 export const Courses = () => {
+  const navigate = useNavigate();
+
+  const coursePaths = [
+    {
+      icon: '💻',
+      title: 'Full-Stack Development',
+      description: 'Build complete web applications from frontend to backend, deployment to database.',
+      projects: ['E-commerce Platform', 'Social Network', 'SaaS Dashboard']
+    },
+    {
+      icon: '⚙️',
+      title: 'Backend Engineering',
+      description: 'Master server-side development, APIs, databases, and microservices architecture.',
+      projects: ['REST API', 'GraphQL Service', 'Microservices System']
+    },
+    {
+      icon: '🎨',
+      title: 'Frontend Mastery',
+      description: 'Create stunning, responsive interfaces with React, animations, and modern UI/UX.',
+      projects: ['Admin Dashboard', 'Interactive UI', 'Animation Library']
+    },
+    {
+      icon: '🛠️',
+      title: 'DevOps & Cloud',
+      description: 'Learn deployment, CI/CD pipelines, monitoring, and cloud infrastructure.',
+      projects: ['CI/CD Pipeline', 'Monitoring System', 'Cloud Architecture']
+    }
+  ];
+
   return (
-    <>
-      <ComicClickEffect />
-      <Header />
-      <main className="min-h-screen bg-gradient-to-br from-brand-neutral-light via-purple-50 to-teal-50">
-        <section className="py-24">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <motion.div
+    <PageLayout>
+      <section className="py-24 bg-gradient-to-br from-brand-neutral-light via-purple-50 to-teal-50 min-h-screen">
+        <div className="container mx-auto px-6 max-w-6xl">
+          {/* Hero */}
+          <motion.div
+            className="text-center mb-16"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+          >
+            <motion.h1
+              className="mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-16"
+              transition={{ duration: 0.6 }}
             >
-              <h1 className="text-5xl font-bold mb-6">
-                Our <span className="text-brand-purple">Learning Paths</span>
-              </h1>
-              <p className="text-xl text-brand-neutral-mid max-w-3xl mx-auto">
-                Production-ready projects designed to take you from beginner to job-ready developer. 
-                Choose your path and start building real applications.
-              </p>
-            </motion.div>
-
-            {/* Coming Soon Notice */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white rounded-2xl p-12 shadow-xl text-center max-w-2xl mx-auto"
-            >
-              <div className="text-6xl mb-6">🚀</div>
-              <h2 className="text-3xl font-bold mb-4 text-brand-purple">
-                Coming Soon!
-              </h2>
-              <p className="text-lg text-brand-neutral-mid mb-8">
-                We're crafting an amazing collection of project-based learning paths. 
-                Our courses will be launching soon with hands-on projects in:
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
-                {[
-                  '💻 Full-Stack Development',
-                  '⚙️ Backend Engineering',
-                  '🎨 Frontend Mastery',
-                  '🛠️ DevOps & Cloud'
-                ].map((item, index) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="bg-brand-neutral-light rounded-xl p-4 font-medium"
-                  >
-                    {item}
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-brand-neutral-mid">
-                  Want early access when we launch?
-                </p>
-                <Link to="/contact">
-                  <Button variant="primary" size="lg">
-                    Get Notified →
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Back to Home */}
-            <motion.div
+              Project-Based <span className="text-brand-purple">Learning Paths</span>
+            </motion.h1>
+            <motion.p
+              className="text-xl text-brand-neutral-mid max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-center mt-12"
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <Link
-                to="/"
-                className="text-brand-purple hover:text-brand-purple-dark font-medium transition-colors"
+              Learn by building production-ready applications. Every course is hands-on, 
+              practical, and focused on real-world skills that matter.
+            </motion.p>
+          </motion.div>
+
+          {/* Learning Approach */}
+          <motion.div
+            className="bg-white rounded-2xl p-8 shadow-lg mb-16 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={defaultViewport}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl font-bold mb-4 text-brand-purple">Why Project-Based?</h2>
+            <div className="space-y-3 text-brand-neutral-mid">
+              <p className="flex items-start gap-3">
+                <span className="text-brand-teal text-xl">✓</span>
+                <span><strong>Learn by doing:</strong> Build complete applications, not isolated code snippets</span>
+              </p>
+              <p className="flex items-start gap-3">
+                <span className="text-brand-teal text-xl">✓</span>
+                <span><strong>Production-ready:</strong> Master deployment, testing, and best practices</span>
+              </p>
+              <p className="flex items-start gap-3">
+                <span className="text-brand-teal text-xl">✓</span>
+                <span><strong>Portfolio-worthy:</strong> Create projects you can showcase to employers</span>
+              </p>
+              <p className="flex items-start gap-3">
+                <span className="text-brand-teal text-xl">✓</span>
+                <span><strong>Job-ready skills:</strong> Focus on technologies used by real development teams</span>
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Course Paths Grid */}
+          <motion.div
+            className="grid md:grid-cols-2 gap-8 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+          >
+            {coursePaths.map((path) => (
+              <motion.div
+                key={path.title}
+                className="bg-white rounded-2xl p-8 shadow-lg border-2 border-transparent hover:border-brand-purple transition-all group"
+                variants={staggerItem}
+                whileHover={{ y: -5 }}
               >
-                ← Back to Home
-              </Link>
+                <div className="text-5xl mb-4">{path.icon}</div>
+                <h3 className="text-2xl font-bold mb-3 text-brand-purple-dark">{path.title}</h3>
+                <p className="text-brand-neutral-mid mb-4">{path.description}</p>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-brand-purple">Example Projects:</p>
+                  <ul className="space-y-1">
+                    {path.projects.map((project) => (
+                      <li key={project} className="text-sm text-brand-neutral-mid flex items-center gap-2">
+                        <span className="text-brand-teal">→</span>
+                        {project}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Preview Notice & Waitlist CTA */}
+          <motion.div
+            className="bg-gradient-to-br from-brand-purple via-purple-600 to-brand-teal rounded-3xl p-12 text-white text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={defaultViewport}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-6xl mb-6">🚀</div>
+            <h2 className="text-3xl font-bold mb-4">
+              Courses Launching Soon!
+            </h2>
+            <p className="text-lg mb-8 opacity-90">
+              We're crafting comprehensive project-based courses with hands-on learning experiences. 
+              Join the waitlist to get early access when we launch.
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-white text-brand-purple hover:bg-white/90"
+                onClick={() => navigate('/contact')}
+              >
+                Join the Waitlist →
+              </Button>
             </motion.div>
-          </div>
-        </section>
-      </main>
-    </>
+            <p className="text-sm mt-6 opacity-75">
+              No spam, just updates when courses are ready
+            </p>
+          </motion.div>
+        </div>
+      </section>
+    </PageLayout>
   );
 };

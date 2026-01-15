@@ -1,12 +1,9 @@
-import { Header } from '@/components/ui/Header';
-import { ComicClickEffect } from '@/components/effects/ComicClickEffect';
+import { PageLayout } from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
 
 export const Contact = () => {
   return (
-    <>
-      <ComicClickEffect />
-      <Header />
+    <PageLayout>
       <main className="min-h-screen bg-gradient-to-br from-brand-neutral-light via-purple-50 to-teal-50">
         <section className="py-24">
           <div className="container mx-auto px-6 max-w-4xl">
@@ -150,6 +147,6 @@ export const Contact = () => {
           </div>
         </section>
       </main>
-    </>
+    </PageLayout>
   );
 };
