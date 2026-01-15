@@ -52,16 +52,23 @@ export const Courses = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Project-Based <span className="text-brand-purple">Learning Paths</span>
+              Learn Development by <span className="text-brand-purple">Building Real Projects</span>
             </motion.h1>
             <motion.p
-              className="text-xl text-brand-neutral-mid max-w-3xl mx-auto leading-relaxed"
+              className="text-xl text-brand-neutral-mid max-w-3xl mx-auto leading-relaxed mb-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Learn by building production-ready applications. Every course is hands-on, 
-              practical, and focused on real-world skills that matter.
+              Stop watching tutorials. Start building production-grade applications that you can showcase to employers.
+            </motion.p>
+            <motion.p
+              className="text-lg text-brand-neutral-mid max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              Every course teaches through hands-on projects using industry-standard tools and best practices.
             </motion.p>
           </motion.div>
 

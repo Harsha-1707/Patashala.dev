@@ -31,9 +31,10 @@ export default {
         }
       },
       fontFamily: {
-        display: ['Permanent Marker', 'cursive'],
-        body: ['Caveat', 'cursive'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Cosmic Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['Cosmic Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       animation: {
         'wiggle': 'wiggle 3s ease-in-out infinite',

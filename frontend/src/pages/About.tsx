@@ -56,7 +56,7 @@ export const About = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Building the future of developer education through real projects
+              A hands-on learning platform for developers who want to build real applications
             </motion.p>
           </motion.div>
 
@@ -68,15 +68,14 @@ export const About = () => {
             viewport={defaultViewport}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold mb-6 text-brand-purple">Our Mission</h2>
+            <h2 className="text-3xl font-bold mb-6 text-brand-purple">What We Do</h2>
             <p className="text-lg text-brand-neutral-mid leading-relaxed mb-4">
-              At Patashala.Dev, we're on a mission to transform how developers learn. Traditional tutorials 
-              teach syntax, but they don't prepare you for the real world. We believe learning should mirror 
-              what you'll actually do on the job: building complete, production-grade applications.
+              We teach developers how to build production-grade applications through project-based courses. 
+              Each course walks you through building a real application from scratch—complete with architecture, testing, deployment, and maintenance.
             </p>
             <p className="text-lg text-brand-neutral-mid leading-relaxed">
-              Every project you build with us is designed to teach you not just how to code, but how to think 
-              like a professional developer—from architecture and testing to deployment and maintenance.
+              We also build custom web and mobile applications for businesses. Every app we build 
+              becomes a learning resource, ensuring our courses teach real-world patterns and practices.
             </p>
           </motion.div>
 
@@ -90,13 +89,11 @@ export const About = () => {
           >
             <h2 className="text-3xl font-bold mb-6 text-brand-purple">Why Patashala.Dev?</h2>
             <p className="text-lg text-brand-neutral-mid leading-relaxed mb-4">
-              The word "Patashala" (पाठशाला) means "school" in Hindi—but it carries deeper meaning. 
-              It represents a place of holistic learning, where knowledge is practical and immediately applicable.
+              "Patashala" (पाठशाला) means "school" in Hindi, but it represents more than that—it's a place where learning is practical and immediately applicable.
             </p>
             <p className="text-lg text-brand-neutral-mid leading-relaxed">
-              We founded Patashala.Dev because too many developers graduate from bootcamps and courses 
-              without the confidence to build real applications. We're changing that by making project-based 
-              learning accessible, comprehensive, and genuinely job-ready.
+              Too many developers complete courses without the confidence to build real applications. 
+              We're fixing that by making project-based learning comprehensive, practical, and job-ready.
             </p>
           </motion.div>
 
@@ -108,7 +105,7 @@ export const About = () => {
             whileInView="visible"
             viewport={defaultViewport}
           >
-            <h2 className="text-3xl font-bold mb-8 text-center text-brand-purple">Our Philosophy</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center text-brand-purple">How We Teach</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {values.map((value) => (
                 <motion.div
@@ -133,9 +130,9 @@ export const About = () => {
             viewport={defaultViewport}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold mb-4">Join Our Learning Community</h2>
+            <h2 className="text-3xl font-bold mb-4">Ready to Build Real Projects?</h2>
             <p className="text-lg mb-8 opacity-90">
-              Start building production-grade projects and level up your development skills.
+              Start learning by building production-grade applications.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <motion.div whileHover={{ scale: 1.05 }}>

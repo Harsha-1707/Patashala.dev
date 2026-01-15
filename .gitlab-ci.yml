@@ -1,0 +1,65 @@
+# GitLab CI/CD Pipeline for Firebase Hosting Deployment
+
+stages:
+  - build
+  - deploy
+
+# Frontend build job
+build:frontend:
+  stage: build
+  image: node:18-alpine
+  cache:
+    key: npm-cache
+    paths:
+      - frontend/node_modules/
+  script:
+    - cd frontend
+    - npm ci --prefer-offline
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/dist/
+    expire_in: 1 hour
+  only:
+    - main
+    - merge_requests
+
+# Deploy to Firebase Hosting (main branch only)
+deploy:firebase:
+  stage: deploy
+  image: node:18-alpine
+  dependencies:
+    - build:frontend
+  before_script:
+    - npm install -g firebase-tools
+  script:
+    # Authenticate using service account
+    - echo "$FIREBASE_SERVICE_ACCOUNT" > ${CI_PROJECT_DIR}/firebase-sa.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=${CI_PROJECT_DIR}/firebase-sa.json
+
+    # Deploy to Firebase Hosting
+    - firebase deploy --only hosting --project $FIREBASE_PROJECT_ID --non-interactive
+
+    # Clean up credentials
+    - rm ${CI_PROJECT_DIR}/firebase-sa.json
+  after_script:
+    # Ensure credentials are removed even if deploy fails
+    - rm -f ${CI_PROJECT_DIR}/firebase-sa.json
+  only:
+    - main
+  environment:
+    name: production
+    url: https://$FIREBASE_PROJECT_ID.web.app
+# Optional: Backend deployment (if using Firebase Functions)
+# deploy:functions:
+#   stage: deploy
+#   image: node:18-alpine
+#   before_script:
+#     - npm install -g firebase-tools
+#   script:
+#     - echo "$FIREBASE_SERVICE_ACCOUNT" > ${CI_PROJECT_DIR}/firebase-sa.json
+#     - export GOOGLE_APPLICATION_CREDENTIALS=${CI_PROJECT_DIR}/firebase-sa.json
+#     - firebase deploy --only functions --project $FIREBASE_PROJECT_ID --non-interactive
+#     - rm ${CI_PROJECT_DIR}/firebase-sa.json
+#   only:
+#     - main

@@ -38,3 +38,9 @@ coverage/
 .cache/
 tmp/
 temp/
+
+# Firebase - CRITICAL: Never commit credentials
+firebase-sa.json
+.firebase/
+firebase-debug.log
+.firebaserc.local

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/Button';
 import heroIllustration from '@/assets/illustrations/hero-illustration.png';
 import logo from '@/assets/illustrations/logo.png';
 import { useNavigate } from 'react-router-dom';
+import DecryptedText from '@/components/effects/DecryptedText';
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -84,19 +85,52 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              Build <span className="text-gradient-purple">Real Projects</span>,
+              <DecryptedText 
+                text="Build " 
+                animateOn="view"
+                revealDirection="start"
+                maxIterations={10}
+                speed={60}
+                sequential={true}
+              />
+              <span className="text-gradient-purple">
+                <DecryptedText 
+                  text="Real Projects" 
+                  animateOn="view"
+                  revealDirection="center"
+                  maxIterations={15}
+                  speed={80}
+                  sequential={true}
+                />
+              </span>,
               <br />
-              Learn <span className="text-gradient-purple">Real Skills</span>
+              <DecryptedText 
+                text="Learn " 
+                animateOn="view"
+                revealDirection="start"
+                maxIterations={10}
+                speed={60}
+                sequential={true}
+              />
+              <span className="text-gradient-purple">
+                <DecryptedText 
+                  text="Real Skills" 
+                  animateOn="view"
+                  revealDirection="center"
+                  maxIterations={15}
+                  speed={80}
+                  sequential={true}
+                />
+              </span>
             </motion.h1>
 
             <motion.p 
               className="text-xl text-brand-neutral-mid mb-8 leading-relaxed max-w-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 1.5, duration: 1 }}
             >
-              Playful on the surface, serious underneath. Join developers who learn by building 
-              production-grade projects that matter.
+              Learn development by building production-grade applications. No theory, no tutorials—just real projects you can deploy.
             </motion.p>
 
             <motion.div 
@@ -106,10 +140,10 @@ export const Hero = () => {
               transition={{ delay: 0.5 }}
             >
               <Button variant="primary" size="lg" onClick={() => navigate('/courses')}>
-                Start Learning →
+                View Courses
               </Button>
               <Button variant="ghost" size="lg" onClick={() => navigate('/courses')}>
-                Explore Projects
+                See Projects
               </Button>
             </motion.div>
 
