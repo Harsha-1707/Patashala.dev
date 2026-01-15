@@ -2,8 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import heroIllustration from '@/assets/illustrations/hero-illustration.png';
 import logo from '@/assets/illustrations/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero = () => {
+  const navigate = useNavigate();
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
@@ -103,10 +105,10 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" onClick={() => navigate('/courses')}>
                 Start Learning →
               </Button>
-              <Button variant="ghost" size="lg">
+              <Button variant="ghost" size="lg" onClick={() => navigate('/courses')}>
                 Explore Projects
               </Button>
             </motion.div>

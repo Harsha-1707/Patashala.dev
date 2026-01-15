@@ -2,8 +2,11 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import logo from '@/assets/illustrations/logo.png';
 import { fadeUp, defaultViewport } from '@/utils/motionVariants';
+import { useNavigate } from 'react-router-dom';
 
 export const FinalCTA = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="py-24 bg-gradient-to-br from-brand-purple via-purple-600 to-brand-teal relative overflow-hidden">
       {/* Animated decorative elements */}
@@ -134,6 +137,7 @@ export const FinalCTA = () => {
                 variant="secondary" 
                 size="lg"
                 className="bg-white text-brand-purple hover:bg-white/90 hover:text-brand-purple-dark shadow-2xl"
+                onClick={() => navigate('/contact')}
               >
                 Get Started Free →
               </Button>
@@ -145,6 +149,7 @@ export const FinalCTA = () => {
                 variant="ghost" 
                 size="lg"
                 className="border-white text-white hover:bg-white hover:text-brand-purple"
+                onClick={() => navigate('/courses')}
               >
                 Browse Projects
               </Button>

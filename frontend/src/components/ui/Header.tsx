@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import logo from '@/assets/illustrations/logo.png';
 
 export const Header = () => {
+  const navigate = useNavigate();
   // Scroll detection for navbar state change
   const { scrollY } = useScroll();
   
@@ -91,7 +92,7 @@ export const Header = () => {
             >
               Community
             </Link>
-            <Button variant="primary" size="sm">
+            <Button variant="primary" size="sm" onClick={() => navigate('/contact')}>
               Get Started
             </Button>
           </nav>
