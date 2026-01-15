@@ -3,6 +3,25 @@
   base = "frontend"
   command = "npm run build"
   publish = "dist"
+  
+  # Skip builds when only docs or non-code files change
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)README.md' ':(exclude)*.md' ':(exclude).gitignore'"
+
+[build.environment]
+  NODE_VERSION = "18"
+  # Enable build caching to speed up builds (uses fewer credits)
+  NPM_FLAGS = "--prefer-offline --no-audit"
+
+# Only deploy production branch automatically
+[context.production]
+  command = "npm run build"
+  
+# Skip preview deploys to save credits (comment out if you need previews)
+[context.deploy-preview]
+  command = "echo 'Skipping preview deploy' && exit 0"
+
+[context.branch-deploy]
+  command = "echo 'Skipping branch deploy' && exit 0"
 
 # Redirect all routes to index.html for React Router
 [[redirects]]
