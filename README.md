@@ -1,93 +1,235 @@
-# Website_for_dotdev
+# Patashala.dev 🎯
 
+**Learn by Building. Build for Real.**
 
+A project-first learning platform where developers build production-grade applications while mastering modern development practices. We're not just another tutorial platform—we focus on real-world skills that matter.
 
-## Getting started
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178C6?logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 🌟 What Makes Us Different
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- **🎯 Project-Driven Learning**: Build real-world applications, not toy examples
+- **⚡ Production-Grade Code**: Every project follows industry best practices and clean architecture
+- **🚀 Skills That Matter**: Focus on technologies and patterns used by actual development teams
 
-## Add your files
+## 🛠️ Tech Stack
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+### Frontend
+
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite 5
+- **Styling**: TailwindCSS 3.4 with custom animations
+- **Animations**: Framer Motion 10
+- **3D Graphics**: Three.js + OGL
+- **Routing**: React Router v6
+
+### Backend
+
+- **Runtime**: Node.js with Express
+- **Language**: TypeScript
+- **Security**: Helmet.js, CORS
+- **Validation**: Zod
+- **Environment**: dotenv
+
+### DevOps & Deployment
+
+- **Hosting**: Firebase Hosting
+- **CI/CD**: GitLab CI/CD Pipeline
+- **Version Control**: Git (GitLab primary, GitHub mirror)
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18 or higher)
+- **npm** (v9 or higher)
+- **Git**
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Harsha-1707/Patashala.dev.git
+cd Patashala.dev
+```
+
+### 2. Install Dependencies
+
+Install all dependencies for both frontend and backend:
+
+```bash
+npm run install:all
+```
+
+Or install them separately:
+
+```bash
+# Root dependencies
+npm install
+
+# Frontend dependencies
+cd frontend && npm install
+
+# Backend dependencies
+cd ../backend && npm install
+```
+
+### 3. Environment Setup
+
+Create `.env` files for both frontend and backend:
+
+**Frontend (.env)**
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+**Backend (.env)**
+
+```env
+PORT=3000
+NODE_ENV=development
+```
+
+### 4. Run Development Server
+
+Start both frontend and backend concurrently:
+
+```bash
+npm run dev
+```
+
+Or run them separately:
+
+```bash
+# Frontend only (runs on http://localhost:5173)
+npm run dev:frontend
+
+# Backend only (runs on http://localhost:3000)
+npm run dev:backend
+```
+
+### 5. Build for Production
+
+```bash
+npm run build
+```
+
+This will build both frontend and backend:
+
+- Frontend build output: `frontend/dist`
+- Backend build output: `backend/dist`
+
+## 📁 Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/kattaharshav/website_for_dotdev.git
-git branch -M main
-git push -uf origin main
+patashala.dev/
+├── frontend/               # React + Vite frontend
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── sections/      # Page sections
+│   │   ├── utils/         # Utility functions
+│   │   └── App.tsx        # Main app component
+│   ├── public/            # Static assets
+│   └── index.html         # HTML entry point
+│
+├── backend/               # Express backend
+│   ├── src/
+│   │   ├── controllers/   # Route controllers
+│   │   ├── utils/         # Backend utilities
+│   │   └── server.ts      # Server entry point
+│   └── dist/              # Compiled backend code
+│
+├── .gitlab-ci.yml         # GitLab CI/CD pipeline
+├── firebase.json          # Firebase configuration
+└── package.json           # Root package configuration
 ```
 
-## Integrate with your tools
+## 🎨 Key Features
 
-* [Set up project integrations](https://gitlab.com/kattaharshav/website_for_dotdev/-/settings/integrations)
+### Interactive UI Components
 
-## Collaborate with your team
+- ✨ Smooth animations with Framer Motion
+- 🎭 3D graphics and effects using Three.js
+- 📱 Fully responsive design
+- 🌙 Modern, clean interface
+- 🎯 Premium user experience
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### Backend API
 
-## Test and Deploy
+- 🔒 Security-first approach with Helmet
+- ✅ Schema validation with Zod
+- 📊 Logging and error handling
+- ⚡ Fast and efficient endpoints
 
-Use the built-in continuous integration in GitLab.
+## 🚢 Deployment
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+The project uses GitLab CI/CD for automated deployments to Firebase Hosting.
 
-***
+### Manual Deployment
 
-# Editing this README
+```bash
+# Build the project
+npm run build
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+# Deploy to Firebase
+firebase deploy
+```
 
-## Suggestions for a good README
+### Automated Deployment
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Pushes to the `main` branch automatically trigger:
 
-## Name
-Choose a self-explaining name for your project.
+1. Frontend build
+2. Firebase Hosting deployment
+3. Cache invalidation
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## 🧪 Available Scripts
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+| Command                  | Description                                        |
+| ------------------------ | -------------------------------------------------- |
+| `npm run dev`            | Run both frontend and backend in development mode  |
+| `npm run dev:frontend`   | Run frontend only                                  |
+| `npm run dev:backend`    | Run backend only                                   |
+| `npm run build`          | Build both frontend and backend for production     |
+| `npm run build:frontend` | Build frontend only                                |
+| `npm run build:backend`  | Build backend only                                 |
+| `npm run install:all`    | Install all dependencies (root, frontend, backend) |
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## 🤝 Contributing
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## 📄 License
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## 🙋‍♂️ Support
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+For support, email contact@patashala.dev or open an issue in the repository.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## 🔗 Links
 
-## License
-For open source projects, say how it is licensed.
+- **Live Site**: [patashala.dev](https://patashala.dev)
+- **GitLab Repository**: [gitlab.com/kattaharshav/website_for_dotdev](https://gitlab.com/kattaharshav/website_for_dotdev)
+- **GitHub Repository**: [github.com/Harsha-1707/Patashala.dev](https://github.com/Harsha-1707/Patashala.dev)
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 📊 Project Status
+
+🚀 **Active Development** - This project is actively maintained and updated regularly.
+
+---
+
+**Built with ❤️ by the Patashala.dev team**
